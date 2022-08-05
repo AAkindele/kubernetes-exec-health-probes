@@ -1,6 +1,6 @@
 # kubernetes-exec-health-probes
 
-TODO: description
+Walkthrough using Kubernetes exec health probes for applications without network endpoints.
 
 ```bash
 
