@@ -1,0 +1,15 @@
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: kubernetes-exec-health-probes
+servers: 1
+agents: 1
+options:
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - "server:*"
+      - arg: "--disable=servicelb"
+        nodeFilters:
+          - "server:*"
