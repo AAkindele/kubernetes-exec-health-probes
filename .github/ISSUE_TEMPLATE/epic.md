@@ -1,10 +1,16 @@
 ---
 name: Epic
-about: Describe this issue template's purpose here.
+about: Large body of work to be broken up
 title: ''
-labels: ''
+labels: epic, kubernetes exec health probes
 assignees: ''
 
 ---
 
+## TODO: Add epic title
 
+TODO: Short description of epic
+
+## Goals
+
+TODO: Desired end goals
