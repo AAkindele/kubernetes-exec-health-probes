@@ -2,6 +2,9 @@
 
 Walkthrough using Kubernetes exec health probes for applications without network endpoints.
 
+docker version 20.10.17
+k3d version 5.4.4
+
 ```bash
 
 # create cluster
