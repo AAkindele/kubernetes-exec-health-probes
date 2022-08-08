@@ -16,6 +16,12 @@ k3d cluster list
 # verify
 kubectl get nodes
 
+# docker build
+
+# push
+
+# deploy
+
 # delete cluster
 k3d cluster delete --config k3d.yaml
 

@@ -13,3 +13,7 @@ options:
       - arg: "--disable=servicelb"
         nodeFilters:
           - "server:*"
+registries:
+  create:
+    name: k3d-registry.localhost
+    hostPort: "5000"
