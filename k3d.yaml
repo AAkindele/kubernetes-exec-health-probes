@@ -1,7 +1,7 @@
 apiVersion: k3d.io/v1alpha4
 kind: Simple
 metadata:
-  name: kubernetes-exec-health-probes
+  name: k8s-exec-probes
 servers: 1
 agents: 1
 options:

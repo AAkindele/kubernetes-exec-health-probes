@@ -1,7 +1,13 @@
-# from alpine
+FROM alpine
 
-# add all or specific?
+COPY . /app
 
-# non root user
+WORKDIR /app
 
-# app.sh entrypoint
+RUN addgroup -S demo && \
+    adduser -S demo -G demo && \
+    chown -R demo:demo /app
+
+USER demo
+
+ENTRYPOINT [ "./app.sh" ]
