@@ -1,3 +1,5 @@
+#!/bin/sh
+
 set -e
 
 # how long the health file can go without being updated
@@ -27,7 +29,7 @@ cutoff_time=$(($current_time - $threshold_seconds))
 echo "cutoff_time - $cutoff_time"
 
 # last time health file was updated
-last_update=`stat $health_file --format "%Y"`
+last_update=`stat $health_file -c "%Y"`
 echo "last_update - $last_update"
 
 # last update to health file is before the beginning of the required time range

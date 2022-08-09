@@ -1,3 +1,5 @@
+#!/bin/sh
+
 set -e
 
 # file used to check of activity
