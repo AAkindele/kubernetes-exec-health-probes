@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-exec-probe-demo
+spec:
+  selector:
+    matchLabels:
+      app: k8s-exec-probe-demo
+  template:
+    metadata:
+      labels:
+        app: k8s-exec-probe-demo
+    spec:
+      containers:
+      - name: k8s-exec-probe-demo
+        image: k3d-registry.localhost:5000/k8s-exec-probe-demo
+        imagePullPolicy: Always
+        args:
+          - "5"
+        readinessProbe:
+          exec:
+            command:
+              - "./readiness.sh"
+              - "/tmp/health.txt"
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+              - "./liveness.sh"
+              - "6"
+              - "/tmp/health.txt"
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

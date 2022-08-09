@@ -16,6 +16,15 @@ k3d cluster list
 # verify
 kubectl get nodes
 
+# docker build
+docker build . -t k3d-registry.localhost:5000/k8s-exec-probe-demo
+
+# push
+docker push k3d-registry.localhost:5000/k8s-exec-probe-demo
+
+# deploy
+kubectl apply -f deploy.yaml
+
 # delete cluster
 k3d cluster delete --config k3d.yaml
 
