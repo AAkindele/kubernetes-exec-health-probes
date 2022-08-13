@@ -6,9 +6,13 @@ set -e
 health_file="$1"
 if [ -z "$health_file" ]
 then
-  echo "health_file is missing"
+  echo "health_file argument is missing"
   exit 1
 fi
 echo "health_file - $health_file"
 
-cat $health_file
+if [ ! -f "$health_file" ]
+then
+  echo "cannot find health file $health_file"
+  exit 1
+fi
