@@ -28,7 +28,7 @@ docker push k3d-registry.localhost:5000/k8s-exec-probe-demo
 kubectl apply -f deploy.yaml
 kubectl apply -f deploy-fail.yaml
 
-# view pods and restart
+# view pods and pod restarts
 kubectl get pods
 
 # view probe status in events
