@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# how long to sleep between file updates
+# how long to wait between file updates
 sleep_seconds=$1
 if [ -z "$sleep_seconds" ]
 then
