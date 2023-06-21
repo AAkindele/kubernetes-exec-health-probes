@@ -25,15 +25,15 @@ current_time=`date +%s`
 echo "current_time - $current_time"
 
 # beginning of time range we're checking for activity
-cutoff_time=$(($current_time - $threshold_seconds))
-echo "cutoff_time - $cutoff_time"
+low_update_cutoff_time=$(($current_time - $threshold_seconds))
+echo "low_update_cutoff_time - $low_update_cutoff_time"
 
 # last time health file was updated
 last_update=`stat $health_file -c "%Y"`
 echo "last_update - $last_update"
 
 # last update to health file is before the beginning of the required time range
-if [ $last_update -lt $cutoff_time ]
+if [ $last_update -lt $low_update_cutoff_time ]
 then
   echo "Health file has not been updated within threshold."
   exit 1

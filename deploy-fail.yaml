@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-exec-probe-demo
+  name: k8s-exec-probe-demo-fail
 spec:
   selector:
     matchLabels:
-      app: k8s-exec-probe-demo
+      app: k8s-exec-probe-demo-fail
   template:
     metadata:
       labels:
-        app: k8s-exec-probe-demo
+        app: k8s-exec-probe-demo-fail
     spec:
       containers:
       - name: k8s-exec-probe-demo
         image: k3d-registry.localhost:5000/k8s-exec-probe-demo
         imagePullPolicy: Always
         args:
-          - "5"
+          - "60"
         readinessProbe:
           exec:
             command:

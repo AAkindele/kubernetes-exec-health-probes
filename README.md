@@ -2,8 +2,10 @@
 
 Walkthrough using Kubernetes exec health probes for applications without network endpoints.
 
-docker version 20.10.17
-k3d version 5.4.4
+Tested on:
+
+- docker version 24.0.2
+- k3d version 5.5.1
 
 ```bash
 
@@ -24,6 +26,14 @@ docker push k3d-registry.localhost:5000/k8s-exec-probe-demo
 
 # deploy
 kubectl apply -f deploy.yaml
+kubectl apply -f deploy-fail.yaml
+
+# view pods and restart
+kubectl get pods
+
+# view probe status in events
+# TODO: view events for a specific pod from `kubectl get events`
+kubectl describe pod <pod name>
 
 # delete cluster
 k3d cluster delete --config k3d.yaml

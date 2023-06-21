@@ -9,13 +9,6 @@ then
 fi
 echo "sleep_seconds - $sleep_seconds"
 
-# start up wait time. default to 1 second if missing
-start_delay_seconds="${2:-1}"
-echo "start_delay_seconds - $start_delay_seconds"
-
-echo "sleeping for $start_delay_seconds seconds"
-sleep $start_delay_seconds
-
 while true
 do
   # update the file before doing work
