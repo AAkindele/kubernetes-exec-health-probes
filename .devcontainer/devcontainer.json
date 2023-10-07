@@ -1,0 +1,21 @@
+{
+  "name": "Kubernetes exec health probes",
+  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "azureDnsAutoDetection": true,
+      "installDockerBuildx": true,
+      "version": "latest",
+      "dockerDashComposeVersion": "none"
+    },
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "latest",
+      "helm": "none",
+      "minikube": "none"
+    }
+  },
+
+  "postCreateCommand": ".devcontainer/postCreate.sh"
+}
