@@ -31,9 +31,11 @@ kubectl apply -f deploy-fail.yaml
 # view pods and pod restarts
 kubectl get pods
 
-# view probe status in events
-# TODO: view events for a specific pod from `kubectl get events`
-kubectl describe pod <pod name>
+# get failing pods name
+podName=$(kubectl get pods -l app=k8s-exec-probe-demo-fail -o jsonpath='{.items[0].metadata.name}')
+
+# view probe status and messages in the events
+kubectl get events --field-selector "involvedObject.name=$podName"
 
 # delete cluster
 k3d cluster delete --config k3d.yaml
