@@ -22,7 +22,7 @@ More information on probes can be found here, <https://kubernetes.io/docs/concep
 
 ## Walkthrough
 
-Create a local cluster using k3d. the k3d.yaml config file includes a local registry as well.
+Create a local cluster using k3d. The k3d.yaml config file includes a local registry as well.
 
 ```bash
 
@@ -32,8 +32,17 @@ k3d cluster create --config k3d.yaml
 # view clusters
 k3d cluster list
 
+### example output
+# NAME              SERVERS   AGENTS   LOADBALANCER
+# k8s-exec-probes   1/1       1/1      true
+
 # verify
 kubectl get nodes
+
+### example output
+# NAME                           STATUS   ROLES                  AGE    VERSION
+# k3d-k8s-exec-probes-server-0   Ready    control-plane,master   114s   v1.27.4+k3s1
+# k3d-k8s-exec-probes-agent-0    Ready    <none>                 109s   v1.27.4+k3s1
 
 ```
 
@@ -89,6 +98,11 @@ kubectl apply -f deploy-fail.yaml
 # it might take a minute or two to see the pod restarts
 kubectl get pods
 
+###example output
+# NAME                                        READY   STATUS    RESTARTS     AGE
+# k8s-exec-probe-demo-65f489d567-n9hw7        1/1     Running   0            79s
+# k8s-exec-probe-demo-fail-58bdbf5445-2m4pb   1/1     Running   1 (8s ago)   79s
+
 ```
 
 When restarts start to show up, view the messages in the Kubernetes events.
@@ -100,6 +114,14 @@ podName=$(kubectl get pods -l app=k8s-exec-probe-demo-fail -o jsonpath='{.items[
 
 # view pod events
 kubectl get events --field-selector "involvedObject.name=$podName"
+
+###example output
+# LAST SEEN   TYPE      REASON      OBJECT                                          MESSAGE
+# 2m8s        Normal    Scheduled   pod/k8s-exec-probe-demo-fail-58bdbf5445-2m4pb   Successfully assigned default/k8s-exec-probe-demo-fail-58bdbf5445-2m4pb to k3d-k8s-exec-probes-agent-0
+# 2m7s        Normal    Pulled      pod/k8s-exec-probe-demo-fail-58bdbf5445-2m4pb   Successfully pulled image "k3d-registry.localhost:5000/k8s-exec-probe-demo" in 725.692522ms (725.753475ms including waiting)
+# 108s        Warning   Unhealthy   pod/k8s-exec-probe-demo-fail-58bdbf5445-2m4pb   Liveness probe failed: threshold_seconds - 10...
+# 98s         Warning   Unhealthy   pod/k8s-exec-probe-demo-fail-58bdbf5445-2m4pb   Liveness probe failed: threshold_seconds - 10...
+# 88s         Warning   Unhealthy   pod/k8s-exec-probe-demo-fail-58bdbf5445-2m4pb   Liveness probe failed: threshold_seconds - 10...
 
 # view messages from the events
 kubectl get events --field-selector "involvedObject.name=$podName" -o jsonpath="{.items[*].message}"
