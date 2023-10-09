@@ -113,7 +113,7 @@ kubectl get pods
 
 ### View probe events and messages
 
-When restarts start to show up, view the messages in the Kubernetes events.
+When restarts begin to show up, view the messages in the Kubernetes events.
 
 ```bash
 
