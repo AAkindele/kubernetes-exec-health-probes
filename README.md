@@ -22,6 +22,8 @@ More information on probes can be found here, <https://kubernetes.io/docs/concep
 
 ## Walkthrough
 
+### Create local cluster
+
 Create a local cluster using k3d. The k3d.yaml config file includes a local registry as well.
 
 ```bash
@@ -46,6 +48,8 @@ kubectl get nodes
 
 ```
 
+### Build container image
+
 Build the container image for the sample workload and push to the local k3d registry.
 
 ```bash
@@ -58,9 +62,11 @@ docker push k3d-registry.localhost:5000/k8s-exec-probe-demo
 
 ```
 
-Create two deployments. One of the deployments, `deploy-fail.yaml`, is configured to fail the liveness probe.
+### Deploy sample workloads
 
-The script representing our sample workload is configured to only update its file every 60 seconds.
+Create two deployments. The first deployment, `deploy.yaml`, is configured to be stable. The second, `deploy-fail.yaml`, is configured to fail the liveness probe.
+
+`deploy-fail.yaml` simulates the scenario where the workload is not progressing at our expected rate. In this scenario, the workload is intentionally configured to take longer than expected to update the file we're checking in the probe.
 
 ```yaml
 # deploy-fail.yaml
@@ -70,7 +76,7 @@ The script representing our sample workload is configured to only update its fil
 ...
 ```
 
-The liveness probe is configured to check every 10 seconds, if a specific file has been update in the last 10 seconds. Since it'll take a minute for the target file to be updated, the probe will eventually fail, causing a pod restart.
+The liveness probe is configured to check every 10 seconds, if a specific file has been update in the last 10 seconds. Since it'll take a 60 seconds for the target file to be updated, the probe will eventually fail, causing a pod restart.
 
 ```yaml
 # deploy-fail.yaml
@@ -104,6 +110,8 @@ kubectl get pods
 # k8s-exec-probe-demo-fail-58bdbf5445-2m4pb   1/1     Running   1 (8s ago)   79s
 
 ```
+
+### View probe events and messages
 
 When restarts start to show up, view the messages in the Kubernetes events.
 
