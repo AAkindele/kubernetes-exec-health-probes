@@ -70,26 +70,28 @@ Create two deployments. The first deployment, `deploy.yaml`, is configured to be
 
 ```yaml
 # deploy-fail.yaml
-...
-        args:
-          - "60"
-...
+
+containers:
+- name: k8s-exec-probe-demo
+  image: k3d-registry.localhost:5000/k8s-exec-probe-demo
+  imagePullPolicy: Always
+  args:
+    - "60"
 ```
 
 The liveness probe is configured to check every 10 seconds, if a specific file has been update in the last 10 seconds. Since it'll take a 60 seconds for the target file to be updated, the probe will eventually fail, causing a pod restart.
 
 ```yaml
 # deploy-fail.yaml
-...
-        livenessProbe:
-          exec:
-            command:
-              - "./liveness.sh"
-              - "10"
-              - "/tmp/health.txt"
-          initialDelaySeconds: 5
-          periodSeconds: 10
-...
+
+livenessProbe:
+  exec:
+    command:
+      - "./liveness.sh"
+      - "10"
+      - "/tmp/health.txt"
+  initialDelaySeconds: 5
+  periodSeconds: 10
 ```
 
 Apply the deployments and wait for one of them to restart.
