@@ -17,5 +17,5 @@ do
 
   # do work
   echo "sleeping for $sleep_seconds seconds"
-  sleep $sleep_seconds
+  sleep "$sleep_seconds"
 done
